@@ -1,7 +1,7 @@
-from math import log
+import math
 
 def g(x):
-    return log(x**2 - 2*x +2)
+    return math.log(x**2 - 2*x +2)
 
 
 x0 = float(input('Ingrese el X0: '))
@@ -15,8 +15,8 @@ while True:
     gx0 = g(x0)
     if error <= tol:
         print('Existe la raiz', x0, 'con tolerancia de', tol)
-        print(error)
         print('g(x) = ', gx0)
+        print('Error =', error)
         print('Iteración:', cont - 1)
         break
     

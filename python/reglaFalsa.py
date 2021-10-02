@@ -12,10 +12,8 @@ fxf = f(xf)
 if fxi * fxf == 0:
     if fxi == 0:
         print('Existe la raiz', xi)
-        print('f(x) = ', fxi)
     else:
         print('Existe la raiz', xf)
-        print('f(x) = ', fxf)
     print('Iteración: 0')
 
 elif fxi * fxf > 0:
@@ -36,7 +34,6 @@ else:
 
         if fxm == 0:
             print('Existe la raiz', xm)
-            print('f(xm) = ', fxf)
             print('Xi =', xi, '- Xf =', xf)
             print('Iteración:', cont)
             break
