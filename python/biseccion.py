@@ -1,56 +1,29 @@
-def f(x):
-    return x**3 - 7.51 * x**2 + 18.4239 * x - 14.8331
-
-
-xi = float(input('Ingrese el Xi: '))
-xf = float(input('Ingrese el Xf: '))
-tol = float(input('Ingrese la tolerancia: '))
-maxIter = int(input('Ingrese el número máximo de iteraciones: '))
-
-fxi = f(xi)
-fxf = f(xf)
-if fxi * fxf == 0:
-    if fxi == 0:
-        print('Existe la raiz', xi)
+!pip install sympy
+import sympy as sp
+from sympy import *
+import math
+from math import *
+x= symbols('x')
+def biseccion(fx,xi,xf, maxI, tol):
+  if fx.subs(x,xi)*fx.subs(x,xf)==0:
+    print(xi, 'o', xf, 'son raiz')
+  elif fx.subs(x,xi)*fx.subs(x,xf)>0: 
+    print('No hay raiz')
+  else:
+    xm=(xi+xf)/2
+    cont=0
+    error=abs(xi-xf)
+    while error>tol and maxI>cont and fx.subs(x,xm)!=0:
+      if fx.subs(x,xi)*fx.subs(x,xm)<0:
+        xf=xm 
+      else: 
+        xi=xm 
+      xm=(xi+xf)/2
+      error=abs(xm-xi)
+      cont=cont+1
+    if fx.subs(x,xm)==0:
+      print(xm,'Es raiz')
+    elif error<tol:
+      print(xm,'Es raiz con tolerancia',tol)
     else:
-        print('Existe la raiz', xf)
-    print('Iteración: 0')
-
-elif fxi * fxf > 0:
-    print('No hay una raiz')
-
-else:
-    cont = 0
-    xm = (xi+xf)/2
-    fxm = f(xm)
-    error = abs(xi-xm)
-    while True:
-        if error <= tol:
-            print('Existe la raiz', xm, 'con tolerancia de', tol)
-            print('f(x) = ', fxm)
-            print('Xi =', xi, '- Xf =', xf)
-            print('Iteración:', cont)
-            break
-
-        if fxm == 0:
-            print('Existe la raiz', xm)
-            print('Xi =', xi, '- Xf =', xf)
-            print('Iteración:', cont)
-            break
-        
-        if cont == maxIter:
-            print('No se encontró una solución')
-            break
-
-        if fxi * fxm < 0:
-            xf = xm
-        else:
-            xi = xm
-
-        fxi = f(xi)
-        fxf = f(xf)
-
-        xm = (xi+xf)/2
-        fxm = f(xm)
-        error = abs(xi-xm)
-        cont += 1
+      print('No hay solución')
