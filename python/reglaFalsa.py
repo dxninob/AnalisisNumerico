@@ -1,56 +1,29 @@
-def f(x):
-    return (x**3) - 7.51 * (x**2) + 18.4239 * x - 14.8331
-
-
-xi = float(input('Ingrese el Xi: '))
-xf = float(input('Ingrese el Xf: '))
-tol = float(input('Ingrese la tolerancia: '))
-maxIter = int(input('Ingrese el número máximo de iteraciones: '))
-
-fxi = f(xi)
-fxf = f(xf)
-if fxi * fxf == 0:
-    if fxi == 0:
-        print('Existe la raiz', xi)
+!pip install sympy
+import sympy as sp
+from sympy import *
+import math
+from math import *
+x= symbols('x')
+def regla_falsa(fx,x0,xf,maxI,tol):
+  if fx.subs(x,x0)*fx.subs(x,xf)==0:
+    print(x0, '0', xf, 'son raiz')
+  elif fx.subs(x,x0)*fx.subs(x,xf)>0:
+    print('no hay raiz')
+  else:
+    xm= xf- fx.subs(x,xf)*(x0-xf)/(fx.subs(x,x0)-fx.subs(x,xf))
+    cont=0
+    error= abs(x0-xm)
+    while error>tol and maxI>cont and fx.subs(x,xm)!=0:
+      if fx.subs(x,x0)*fx.subs(x,xm)<0:
+        xf=xm 
+      else:
+        xi=xm 
+      xm= xf- fx.subs(x,xf)*(x0-xf)/(fx.subs(x,x0)-fx.subs(x,xf))
+      error= abs(x0-xm)
+      cont= cont+1
+    if fx.subs(x,xm)==0:
+      print(xm,'es raiz')
+    elif error<tol:
+      print(xm,'es raiz con tolerancia',tol)
     else:
-        print('Existe la raiz', xf)
-    print('Iteración: 0')
-
-elif fxi * fxf > 0:
-    print('No hay una raiz')
-
-else:
-    cont = 0
-    xm = fxf * (xi-xf) / (fxi-fxf)
-    fxm = f(xm)
-    error = abs(xi-xm)
-    while True:
-        if error <= tol:
-            print('Existe la raiz', xm, 'con tolerancia de', tol)
-            print('f(x) = ', fxf)
-            print('Xi =', xi, '- Xf =', xf)
-            print('Iteración:', cont)
-            break
-
-        if fxm == 0:
-            print('Existe la raiz', xm)
-            print('Xi =', xi, '- Xf =', xf)
-            print('Iteración:', cont)
-            break
-        
-        if cont == maxIter:
-            print('No se encontró una solución')
-            break
-
-        if fxi * fxm < 0:
-            xf = xm
-        else:
-            xi = xm
-
-        fxi = f(xi)
-        fxf = f(xf)
-
-        xm = fxf * (xi-xf) / (fxi-fxf)
-        fxm = f(xm)
-        error = abs(xi-xm)
-        cont += 1
+      print('no hay solución')
