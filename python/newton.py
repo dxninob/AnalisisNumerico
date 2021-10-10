@@ -1,35 +1,19 @@
-from math import e
-
-def f(x):
-    return e **(-x) -x
-
-
-def df(x):
-    return - e **(-x) - 1
-
-
-x0 = float(input('Ingrese el X0: '))
-tol = float(input('Ingrese la tolerancia: '))
-maxIter = int(input('Ingrese el número máximo de iteraciones: '))
-
-cont = 0
-error = tol + 1
-
-while True:
-    fx0 = f(x0)
-    dfx0 = df(x0)
-    if error <= tol:
-        print('Existe la raiz', x0, 'con tolerancia de', tol)
-        print('f(x) = ', fx0)
-        print('Error =', error)
-        print('Iteración:', cont - 1)
-        break
-    
-    if cont == maxIter:
-        print('No se encontró una solución')
-        break
-    
-    xn = x0 - fx0/dfx0
-    error =  abs(xn-x0)
-    x0 = xn
-    cont += 1
+!pip install sympy
+import sympy as sp
+from sympy import *
+import math
+from math import *
+x= symbols('x')
+def newton(fx,x0,maxI,tol):
+  fd= diff(fx)
+  cont=0
+  error= tol+1
+  while cont<maxI and error>tol:
+    xn= x0-fx.subs(x,x0)/fd.subs(x,x0)
+    error= abs(xn-x0)
+    cont= cont+1
+    x0=xn
+  if error<=tol:
+    print(xn,'es raiz con tolerancia',tol)
+  else:
+    print('no converge')
