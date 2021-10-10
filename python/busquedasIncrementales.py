@@ -20,5 +20,3 @@ def busquedas_in(fx,x0,cx,maxI):
     print('Entre', x0, 'y', x1, 'hay al menos una raiz')
   else: 
     print('no hay solución')
-
-busquedas_in(x-1,-1,0.5,20) 
