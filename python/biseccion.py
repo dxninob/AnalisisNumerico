@@ -12,7 +12,7 @@ def biseccion(fx,xi,xf, maxI, tol):
   else:
     xm=(xi+xf)/2
     cont=0
-    error=abs(xi-xm)
+    error=abs(x0-xm)
     while error>tol and maxI>cont and fx.subs(x,xm)!=0:
       if fx.subs(x,xi)*fx.subs(x,xm)<0:
         xf=xm 
