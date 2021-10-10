@@ -1,30 +1,20 @@
+!pip install sympy
+import sympy as sp
+from sympy import *
 import math
-
-def g(x):
-    return math.log(x**2 - 2*x +2)
-
-
-x0 = float(input('Ingrese el X0: '))
-tol = float(input('Ingrese la tolerancia: '))
-maxIter = int(input('Ingrese el número máximo de iteraciones: '))
-
-cont = 0
-error = tol + 1
-
-while True:
-    gx0 = g(x0)
-    if error <= tol:
-        print('Existe la raiz', x0, 'con tolerancia de', tol)
-        print('g(x) = ', gx0)
-        print('Error =', error)
-        print('Iteración:', cont - 1)
-        break
-    
-    if cont == maxIter:
-        print('No se encontró una solución')
-        break
-    
-    xn = gx0
-    error =  abs(xn-x0)
-    x0 = xn
-    cont += 1
+from math import *
+x= symbols('x')
+def punto_fijo(fx,x0,maxI,tol):
+  gx= fx+x
+  cont=0
+  xn=gx.subs(x,x0)
+  error=abs(x0-xn)
+  while cont<maxI and error>tol:
+    x0=xn
+    xn= gx.subs(x,x0)
+    error= abs(xn-x0)
+    cont= cont+1
+  if error<tol:
+    print(xn,'es raiz con tolerancia',tol)
+  else:
+    print('no hay raiz')
