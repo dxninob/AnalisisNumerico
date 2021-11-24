@@ -1,10 +1,21 @@
-def jacobi(A,b,x0,tol,maxI):
-  rows,columns = A.shape
-  diagonal= np.diag(A)
-  D= np.zeros((rows,columns))
+import numpy as np
 
+
+def jacobi(a, x0, tol, maxI, rows, columns):
+  tol = float(tol)
+  maxI = int(maxI)
+  A = np.array([[float(a[j][i]) for i in range(columns-1)] for j in range(rows)])
+  b = np.array([float(a[i][columns -1]) for i in range(rows)])
+  x0 = np.array(x0)
+  x0 = x0.astype(np.float)
+  print(A)
+  print(b)
+  print(x0)
+  diagonal= np.diag(A)
+  D= np.zeros((rows,columns-1))
   for i in range(rows):
     D[i,i]= diagonal[i]
+  print(D)
 
   L= -np.tril(A)+D
   U= -np.triu(A)+D
@@ -15,7 +26,7 @@ def jacobi(A,b,x0,tol,maxI):
 
   for i in autovalores:
     if i>=1:
-      print('el metodo no converge')
+      return 'El metodo no converge', '', ''
 
   C= np.matmul(np.linalg.inv(D),b)
   xant= x0
@@ -29,7 +40,3 @@ def jacobi(A,b,x0,tol,maxI):
     cont= cont+1
 
   return xact, cont, E
-
-
-
-jacobi(np.array([[1,2,3],[1,4,2],[1,3,3]]),[1,2,3],[1,2,3],1,1)

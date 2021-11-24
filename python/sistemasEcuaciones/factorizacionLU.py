@@ -1,5 +1,10 @@
-def factorizacion_LU(A):
-  rows,columns= A.shape
+import numpy as np
+
+
+def factLU(A):
+  A = np.array(A)
+  A = A.astype(np.float)
+  rows, columns= A.shape
   L= np.zeros((rows,columns))
   U= np.zeros((rows,columns))
 

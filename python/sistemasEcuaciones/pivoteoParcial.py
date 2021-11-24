@@ -1,5 +1,9 @@
-def pivoteoParcial(A, b):
-  n = b.size
+import numpy as np
+
+
+def pivoteoParcial(a, n, numCol):
+  A = np.array([[float(a[j][i]) for i in range(numCol-1)] for j in range(n)])
+  b = np.array([[float(a[i][numCol -1]) for i in range(n)]])
   ab= np.concatenate((A,b.T),axis=1)
 
   for k in range(n):
@@ -30,7 +34,3 @@ def pivoteoParcial(A, b):
     x[i] = (ab[i,n]-sum)/ab[i,i]
 
   return x
-
-
-
-pivoteoParcial(np.array([[2,-1,-3,2],[5,-10,2,-6],[5,-9,15,-6],[2,1,-1,10]]),np.array([[4,3,2,1]]))

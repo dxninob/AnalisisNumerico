@@ -4,7 +4,6 @@ from math import *
 
 x = symbols('x')
 
-
 def biseccion(fx, xi, xf, maxI, tol):
   fx = parse_expr(fx)
 
